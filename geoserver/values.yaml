@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kartoza/geoserver
-  tag: latest
+  tag: 2.20.04
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
