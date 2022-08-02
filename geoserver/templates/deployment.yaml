@@ -29,6 +29,10 @@ spec:
           env:
             - name: GEOSERVER_DATA_DIR
               value: {{ .Values.geoserver.datadir }}
+            - name: GEOSERVER_ADMIN_PASSWORD
+              value: {{ .Values.geoserver.password }}
+            - name: GEOSERVER_ADMIN_USER
+              value: {{ .Values.geoserver.user }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
@@ -45,13 +49,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-            - mountPath: "/data"
-              name: geoserver-volume
-      initContainers:
-        - name: init-geoserver-data-dir
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          command: ['sh', '-c', 'mv /opt/geoserver_data /data/ || true']
           volumeMounts:
             - mountPath: "/data"
               name: geoserver-volume
